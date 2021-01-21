@@ -32,6 +32,7 @@ class Parser {
   static async isValidMessage(message) {
     if (!message || !message.channel || !message.channel.guild) return false;
     if (message.author.bot) return false;
+    return false;
     return true;
   }
 
