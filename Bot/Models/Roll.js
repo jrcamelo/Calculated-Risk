@@ -31,6 +31,7 @@ module.exports = class Roll {
     if (hash.value == null) {
       String.prototype.describeHistoryForEmbed = function() { return this }
       String.prototype.describeHistoryForText = function() { return this }
+      String.prototype.encode = function() { return this }
       return hash;
     }
     this.messageId = hash.messageId;

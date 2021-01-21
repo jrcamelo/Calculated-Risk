@@ -77,7 +77,7 @@ module.exports = class Database {
       let bk = await this.get(ch + "_MIGRATIONBACKUP");
       if (bk) {
         const Channel = require("./Models/Channel");
-        let channel = new Channel().load(chan);
+        let channel = new Channel().load(bk);
         await this.db.set("CHANNEL_" + channel.id, channel);
       }
     }
