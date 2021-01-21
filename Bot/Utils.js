@@ -24,7 +24,6 @@ function isImage(url) {
 }
 
 function encode(str) {
-  return str;
   if (!str) return str;
   try {
     return Base32.encode(str);

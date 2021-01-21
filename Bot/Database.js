@@ -58,9 +58,11 @@ module.exports = class Database {
       if (ch.endsWith("BACKUP")) {
         continue;
       }
-      let channel = await this.get(ch);
+      let chan = await this.get(ch);
+      const Channel = require("./Models/Channel");
+      let channel = new Channel().load(chan);
       channel.encode();
-      await this.db.set(prefix + channel.id, channel);
+      await this.db.set("CHANNEL_" + channel.id, channel);
     }
   }
 }
