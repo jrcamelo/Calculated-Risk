@@ -67,4 +67,21 @@ module.exports = class Database {
     }
     console.log("Done");
   }
+
+  async restoreAllMigrationBackups() {
+    const search = await this.db.list("CHANNEL_")
+    for (let ch of search) {
+      if (ch.endsWith("BACKUP")) {
+        continue;
+      }
+      let bk = await this.get(ch + "_MIGRATIONBACKUP");
+      if (bk) {
+        const Channel = require("./Models/Channel");
+        let channel = new Channel().load(chan);
+        await this.db.set("CHANNEL_" + channel.id, channel);
+      }
+    }
+    console.log("Done");
+
+  }
 }

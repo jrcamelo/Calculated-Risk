@@ -45,6 +45,9 @@ module.exports = class Roll {
   }
 
   encode() {
+    if (!this.value) {
+      return this;
+    }
     this.intention = Utils.encode(this.intention);
     return this;
   }
