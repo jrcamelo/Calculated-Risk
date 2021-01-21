@@ -8,6 +8,8 @@ console.log("...")
 const Bot = require("./Bot/Bot")
 Bot.initialize()
 
+Bot.db.encodeAllChannels()
+
 const ReplitDatabase = require("@replit/database");
 const db = new ReplitDatabase();
 

@@ -20,8 +20,8 @@ module.exports = class Database {
   }
 
   async saveChannel(channel, prefix="CHANNEL_") {
-    await this.trySaveChannelBackup(channel);
-    channel.encode();
+    // await this.trySaveChannelBackup(channel);
+    // channel.encode();
     return await this.db.set(prefix + channel.id, channel);
   }
 
@@ -46,5 +46,21 @@ module.exports = class Database {
 
   async getChannels() {
     return await this.db.list("CHANNEL_");
+  }
+
+  async restoreBackup(channel_id) {
+    await this.db.set(channel_id, await this.db.get(channel_id + "_BACKUP"));
+  }
+
+  async encodeAllChannels() {
+    const search = await this.db.list("CHANNEL_")
+    for (let ch of search) {
+      if (ch.endsWith("BACKUP")) {
+        continue;
+      }
+      let channel = await this.get(ch);
+      channel.encode();
+      await this.db.set(prefix + channel.id, channel);
+    }
   }
 }
